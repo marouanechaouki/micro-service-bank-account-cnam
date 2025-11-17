@@ -1,7 +1,9 @@
 package fr.cnam.customerservice.web;
 
 
+import fr.cnam.customerservice.clients.AccountRestClient;
 import fr.cnam.customerservice.entities.Customer;
+import fr.cnam.customerservice.model.BankAccount;
 import fr.cnam.customerservice.repositories.CustomerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,7 @@ import java.util.List;
 public class CustomerRestController {
 
     private CustomerRepository customerRepository;
+    private AccountRestClient accountRestClient;
     
     @GetMapping("/customers")
     public List<Customer> customerList() {
@@ -23,6 +26,9 @@ public class CustomerRestController {
 
     @GetMapping("/customers/{id}")
     public Customer customerById(@PathVariable  Long id) {
-        return customerRepository.findById(id).get();
+        Customer customer = customerRepository.findById(id).get();
+        List<BankAccount> bankAccountList = accountRestClient.findAccountsByCustomer(id);
+        customer.setBankAccountList(bankAccountList);
+        return customer;
     }
 }

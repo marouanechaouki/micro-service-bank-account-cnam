@@ -40,6 +40,11 @@ public class AccountRestController {
         return bankAccountList;
     }
 
+    //récupérer les comptes d'un user:
+    @GetMapping("/customers/{id}/details")
+    public List<BankAccount> getAccountsByCustomer(@PathVariable Long id) {
+        return bankrepository.findByCustomerId(id);
+    }
 
     Customer getDefaultCustomer(Long id, Exception exception){
         Customer customer = new Customer();

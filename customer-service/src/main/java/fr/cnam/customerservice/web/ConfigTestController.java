@@ -1,6 +1,5 @@
 package fr.cnam.customerservice.web;
 
-
 import fr.cnam.customerservice.config.GlobalConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +12,7 @@ import java.util.Map;
 @RestController
 @RefreshScope
 public class ConfigTestController {
+
 
     @Value("${global.params.p1}")
     private int p1;
